@@ -1,0 +1,63 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: oidc-rp
+  namespace: examples
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oidc-rp
+  template:
+    metadata:
+      labels:
+        app: oidc-rp
+        version: v1
+    spec:
+      containers:
+        - name: oidc-rp
+          image: nrt.ocir.io/orasejapan/shukawam/helidon-rp:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - name: api
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: api
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: api
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          env:
+            - name: security.properties.keycloak-uri
+              valueFrom:
+                secretKeyRef:
+                  name: oidc-rp-secret
+                  key: keycloak_uri
+            - name: security.properties.keycloak-client-id
+              valueFrom:
+                secretKeyRef:
+                  name: oidc-rp-secret
+                  key: keycloak_client_id
+            - name: security.properties.keycloak-client-secret
+              valueFrom:
+                secretKeyRef:
+                  name: oidc-rp-secret
+                  key: keycloak_client_secret
+            - name: security.properties.frontend-uri
+              valueFrom:
+                secretKeyRef:
+                  name: oidc-rp-secret
+                  key: keycloak_frontend_uri
+            - name: cowweb.endpoint-base
+              valueFrom:
+                secretKeyRef:
+                  name: oidc-rp-secret
+                  key: api_endpoint_base
+      imagePullSecrets:
+        - name: ocir-secret
