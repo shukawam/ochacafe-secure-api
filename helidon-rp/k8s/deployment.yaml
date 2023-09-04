@@ -1,21 +1,21 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: oidc-rp
+  name: helidon-rp
   namespace: examples
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: oidc-rp
+      app: helidon-rp
   template:
     metadata:
       labels:
-        app: oidc-rp
+        app: helidon-rp
         version: v1
     spec:
       containers:
-        - name: oidc-rp
+        - name: helidon-rp
           image: nrt.ocir.io/orasejapan/shukawam/helidon-rp:1.0.0
           imagePullPolicy: Always
           ports:
@@ -37,27 +37,27 @@ spec:
             - name: security.properties.keycloak-uri
               valueFrom:
                 secretKeyRef:
-                  name: oidc-rp-secret
+                  name: helidon-rp-secret
                   key: keycloak_uri
             - name: security.properties.keycloak-client-id
               valueFrom:
                 secretKeyRef:
-                  name: oidc-rp-secret
+                  name: helidon-rp-secret
                   key: keycloak_client_id
             - name: security.properties.keycloak-client-secret
               valueFrom:
                 secretKeyRef:
-                  name: oidc-rp-secret
+                  name: helidon-rp-secret
                   key: keycloak_client_secret
             - name: security.properties.frontend-uri
               valueFrom:
                 secretKeyRef:
-                  name: oidc-rp-secret
+                  name: helidon-rp-secret
                   key: keycloak_frontend_uri
             - name: cowweb.endpoint-base
               valueFrom:
                 secretKeyRef:
-                  name: oidc-rp-secret
+                  name: helidon-rp-secret
                   key: api_endpoint_base
       imagePullSecrets:
         - name: ocir-secret
