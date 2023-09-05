@@ -1,3 +1,4 @@
 target/
 .helidon*
 application-local.yaml
+k8s/*demo.yaml
