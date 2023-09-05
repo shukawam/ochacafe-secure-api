@@ -24,11 +24,6 @@ public class CowwebResource {
     @GET
     @Path("/say")
     public String say(@Context ContainerRequestContext ctx) {
-        ctx.getHeaders().forEach((k, v) -> {
-            v.forEach(vv -> {
-                LOGGER.info(String.format("%s: %s", k, vv));
-            });
-        });
         return client.say();
     }
 
