@@ -1,12 +1,18 @@
 config:
   keycloak:clientId:
-    secure: AAABAPdQCEwqMDmHowQTw1voTPZ/iw67iHPBEH6zvCVF0e6a8gI=
+    secure: AAABAIVKYKgiz26Rl4qDmYIFWjnbM8sq+fzcmwehh6C+YoMrFv0=
   keycloak:clientSecret:
-    secure: AAABAJdZZRjPmd0TDhO3kSFcABnxG7Gsv8MRXNFGxzIkRnwHiQlomM3aNoLsb4AZ5fZI1bwo5ocEQxr4ZZ8FdQ==
+    secure: AAABAMprY400z1r1M3xEG0/IkCQujos8lAUAyhDi6gaIMju79Ifcxl6c+4qX2C1vHoFHPs6cFAooihevMOaJMg==
   keycloak:url: https://keycloak.shukawam.me
   realm-settings:data:
     realms:
       - name: ochacafe
+        # Keycloak - Identity brokering
+        googleProvider:
+          clientId:
+            secure: AAABABVf3eml8u1qAVTW2zNivrRETeSIa8eeL0HDjAsv7uivPgykz2n9oe8lObTdwzsdgfo59bTTR/yhdBlut3GiG2QrdIzEOI4g4suGdEsHbZiyj1zP0QtuM52hdK6ZJOQ2t423Wuw=
+          clientSecret:
+            secure: AAABALyWS8YmGy2cvNAHXxsfT17VEf3wqh2TudJOlwLAQk+9AZ9LujQeRcFibTygSKOctrheirTx1CVsSRZKOzv54g==
         # Keycloak native user and groups
         groups:
           - name: guest
@@ -17,28 +23,25 @@ config:
             users:
               - email: admin@example.com
                 username: admin
-        # Keycloak - Identity brokering
-        googleProvider:
-          clientId:
-            secure: AAABALMuoM9LwzTn/oRx/MO1wL6C8PqQbQG4keWy7/RcAKERt80WtLP+ogHyYjfPw0Dje0x2oIxY8ip6RhxPu+D25Yp3jUOHWgG5dBjwCLX6Rx6t+OTVN27YyqxUWq+uv4S72PFAFhM=
-          clientSecret:
-            secure: AAABAFb6EEQ7znP1CqLcFTJHLwfmRWy1vRVQFExcxf9gUgG0fqVKlea5xur77WHdGdz+BK05FlGvdFrhG6hys9Ds5w==
         oidc:
           additionalScopes:
             - groups
             - cowsay:say
             - cowsay:think
           clients:
-            - clientId: curl-rp
-              clientName: curl-rp
+            - clientName: curl-rp
+              clientId: curl-rp
               clientSecret: 90d6dec4-af3f-417a-87a1-0b7ccc9c2942
               rootUri: http://localhost:3000
               validRedirectUris:
                 - /callback
-            - clientId: helidon-rp
-              clientName: helidon-rp
+            - clientName: helidon-rp
+              clientId: helidon-rp
               clientSecret:
-                secure: AAABAHqtMm+dxXn2rksEeCmMY6Lcs37SLu3NGvVbhMyTYQCemyD6dyOJ1r8na7oPgqHhVCcc6CH8B1YmeJrhRHgNMFk=
+                secure: AAABACE+TX6tTOQguBKehh4ovnLniZlxUvFlkQDgynKTAp6hnPDmV2a76UJDDKgjjDrmaBMVie0A8dcf/x+0IRlTKLc=
+              rootUri: https://ochacafe.shukawam.me
+              validRedirectUris:
+                - /oidc/redirect
               optionalScopes:
                 - address
                 - phone
@@ -46,6 +49,3 @@ config:
                 - microprofile-jwt
                 - cowsay:say
                 - cowsay:think
-              rootUri: https://ochacafe.shukawam.me
-              validRedirectUris:
-                - /oidc/redirect
