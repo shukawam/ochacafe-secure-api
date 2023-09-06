@@ -24,12 +24,14 @@ public class CowwebResource {
     @GET
     @Path("/say")
     public String say(@Context ContainerRequestContext ctx) {
+        LOGGER.info("Inside cowsay:say invoker.");
         return client.say();
     }
 
     @GET
     @Path("/think")
     public String think() {
+        LOGGER.info("Inside cowsay:think invoker.");
         return client.think();
     }
 }
